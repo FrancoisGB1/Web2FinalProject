@@ -1,0 +1,10 @@
+@font-face {
+    font-family: "PokemonFont";
+    src: url("../fonts/pokemon.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+}

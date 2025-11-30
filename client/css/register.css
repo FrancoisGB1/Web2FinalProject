@@ -1,0 +1,218 @@
+/* Register CSS */
+
+@font-face {
+    font-family: "PokemonFont";
+    src: url("../fonts/pokemon-firered-leafgreen-font-recreation.ttf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    position: relative;
+    overflow: hidden; /* bounds */
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+}
+
+
+/* Centering */
+.register-container {
+    width: 100%;
+    max-width: 460px;
+    padding: 20px;
+}
+
+/* Trainer card */
+.form-card {
+    position: relative;
+    padding: 26px 24px 20px;
+    border-radius: 18px;
+    border: 4px solid #ffcb05;         
+    background: linear-gradient(135deg, #ffffff 0%, #f7f7ff 40%, #f0f4ff 100%);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+/* Top header style */
+.form-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 100px;
+    background: linear-gradient(90deg, #e3350d 0%, #ff6c3a 50%, #e3350d 100%);
+    z-index: 0;
+}
+
+/* Pokeball */
+.form-card::after {
+    content: "";
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 110px;
+    height: 110px;
+    background: url("../img/poke-ball.webp") no-repeat center/contain;
+    opacity: 0.50; 
+    pointer-events: none;
+}
+
+/* Title and subtitle */
+.form-card h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 4px;
+    text-align: left;
+    font-size: 1.5rem;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.45);
+}
+
+.form-card .subtitle {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 18px;
+    font-size: 0.85rem;
+    color: #ffe9c9;
+}
+
+/* Spacing form/header */
+.form-card form {
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.form-card form button {
+    margin-left: 12px;
+}
+
+/* API message styled */
+#api-message {
+    position: relative;
+    z-index: 1;
+    min-height: 22px;
+    margin: 6px 0 12px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    text-align: center;
+    font-weight: 600;
+    color: #b30000;
+}
+
+/* Inputs look like info lines on a trainer card */
+form input {
+    width: 100%;
+    padding: 10px 11px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #c2c7df;
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+}
+
+form input::placeholder {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: #9ca3c1;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+}
+
+form input:focus {
+    outline: none;
+    border-color: #3b4cca;          /* Pokémon blue */
+    box-shadow: 0 0 0 2px rgba(59, 76, 202, 0.25);
+    transform: translateY(-1px);
+}
+
+/* Submit button styled like a big “CONFIRMER” button on a device */
+form button {
+    width: 100%;
+    padding: 11px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 999px;
+    font-size: 0.98rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ffffff;
+    background: linear-gradient(90deg, #ffcb05 0%, #f5a300 50%, #ffcb05 100%);
+    box-shadow: 0 4px 0 #c18b00;
+    transition: transform 0.08s ease, box-shadow 0.08s ease, filter 0.15s;
+}
+
+form button:hover {
+    filter: brightness(1.05);
+}
+
+form button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #c18b00;
+}
+
+/* “Already have an account” link styled like small footer text */
+.login-link {
+    position: relative;
+    z-index: 1;
+    margin-top: 16px;
+    text-align: center;
+    font-size: 0.86rem;
+    color: #434a6a;
+}
+
+.login-link a {
+    color: #3b4cca;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* World centered behind the card */
+#world {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;   /* clicks go to form */
+    z-index: 0;
+}
+
+/* Map image: fixed aspect ratio, scales nicely */
+#map-bg {
+    display: block;
+    height: 350%;
+    width: auto;            /* keeps ratio */
+    image-rendering: pixelated;
+}
+
+/* Character positioned inside the map */
+#walker {
+    position: absolute;     /* relative to #world, but we'll place it over #map-bg via JS */
+    /*width: 65px;
+    height: 118px;  */         /* keep 1:2 ratio */
+    width: auto;
+    height: 12.5%;  
+
+    image-rendering: pixelated;
+    pointer-events: none;
+}
+
+/* Make sure the registration card is above the sprite */
+.register-container,
+.form-card {
+    position: relative;
+    z-index: 1;
+}
