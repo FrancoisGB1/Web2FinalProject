@@ -1,4 +1,5 @@
-// client/src/walker.js
+
+// Sprites 
 
 const SPRITES = {
     up: {
@@ -31,31 +32,55 @@ const SPRITES = {
     }
 };
 
+
+// Collision section 
+
+// 0 = walkable, 1 = blocked
+const collision_map = [
+    [1, 0, 0, 1, 1, 0, 1, 1],
+    [1, 0, 0, 1, 1, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1, 1],
+    [1, 1, 1, 0, 0, 0, 1, 1],
+    [1, 1, 1, 0, 0, 0, 1, 1],
+    [1, 1, 1, 0, 0, 0, 1, 1],
+    [1, 1, 1, 1, 0, 0, 1, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 0, 0, 0, 1],
+];
+
+const MAP_ROWS = collision_map.length;        // 13
+const MAP_COLS = collision_map[0].length;     // 8 idk why I did 8 I just removed bounds outside the array anyways, uselessm shoudlve been 7
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Class
+
 export default class Walker {
-    /**
-     * imgNode: <img id="walker">
-     * mapNode: <img id="map-bg">
-     * x,y are in [0,1] relative to map size
-     */
+
     constructor(imgNode, mapNode) {
         this.img = imgNode;
         this.map = mapNode;
 
-        // ---- NORMALIZED POSITION (keep your values) ----
+        // Starting positions (weird because we're using an image on a 1920x1080)
         this.x = 0.7385;
         this.y = 0.4;
+        // grid position for collision
+        this.gridX = 4;  // column x
+        this.gridY = 3;  // row  y
 
-        // ---- TILE-LIKE STEP SYSTEM ----
-        // Distance of one "tile" in normalized units (0..1).
-        // Change this to match how big your tiles feel.
-        this.stepSize = 0.038;   // try 0.02–0.03, tweak as you like
+        // how much distance per step
+        this.stepSize = 0.038;   
 
-
+        
         this.moveSpeed = 0.12;   // how fast she slides between tiles
         this.stepDuration = this.stepSize / this.moveSpeed; // seconds to finish one step
 
         // Movement state
-        this.direction = "down";    // "up" | "down" | "left" | "right"
+        this.direction = "down"; // see the dictionnary    
         this.moving = false;
         this.moveProgress = 0;      // 0→1 during a step
         this.startX = this.x;
@@ -63,12 +88,13 @@ export default class Walker {
         this.targetX = this.x;
         this.targetY = this.y;
 
-        // Animation state
+        // animation state
         this.frameIndex = 0;
         this.frameTimer = 0;
         this.frameDuration = 0.15;
 
-        // Keys
+        
+        // keys
         this.keys = { up: false, down: false, left: false, right: false };
 
         this.handleKeyDown = this.handleKeyDown.bind(this);
@@ -81,15 +107,17 @@ export default class Walker {
         this.setSprite();
     }
 
-    // ---------- INPUT ----------
 
-    handleKeyDown(e) {
-        const tag = e.target.tagName;
-        if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON") return;
+
+    // Get input
+
+    handleKeyDown(evt) {
+
 
         // weird values because of custom movement per pixel 1920x1080
+        // so we need different values for left right and up down
         let dir = null;
-        switch (e.code) {
+        switch (evt.code) {
             case "KeyW":
             case "ArrowUp":
                 dir = "up";
@@ -117,17 +145,18 @@ export default class Walker {
             default:
                 return;
         }
-        e.preventDefault();
+ 
 
-        // register key state (used for auto-repeat)
+        // key state
         this.keys[dir] = true;
 
         // try starting a new step in that direction
         this.tryStartMove(dir);
     }
 
-    handleKeyUp(e) {
-        switch (e.code) {
+    // Key state reset when we release key
+    handleKeyUp(evt) {
+        switch (evt.code) {
             case "KeyW":
             case "ArrowUp":
                 this.keys.up = false;
@@ -149,49 +178,72 @@ export default class Walker {
         }
     }
 
-    // ---------- TILE-STEP LOGIC ----------
 
-    /**
-     * Start a new step of exactly `stepSize` in the given direction,
-     * only if we are not already moving.
-     * No diagonals because we only move in 1 dir at a time.
-     */
+    // ------------------------------------------------------------------------------------------------------------------------------------------------
+
+    // Tile logic
+
     tryStartMove(dir) {
-        if (this.moving) return; // must finish current step first
+        if (this.moving) return; // finish step first
 
+        // determine distance on x or y
         let dx = 0, dy = 0;
-        if (dir === "up") dy = -1;
-        else if (dir === "down") dy = 1;
-        else if (dir === "left") dx = -1;
-        else if (dir === "right") dx = 1;
+        if (dir == "up") dy = -1;
+        else if (dir == "down") dy = 1;
+        else if (dir == "left") dx = -1;
+        else if (dir == "right") dx = 1;
 
+        // Grid section
+        // new grid index
+        const newGridX = this.gridX + dx;
+        const newGridY = this.gridY + dy;
+
+        // Checl bounds
+        if (
+            newGridX < 0 || newGridX >= MAP_COLS ||
+            newGridY < 0 || newGridY >= MAP_ROWS
+        ) {
+            return;
+        }
+
+        // collision check (1 = blocked)
+        if (collision_map[newGridY][newGridX] == 1) {
+            return;
+        }
+
+        // update grid index with new pos
+        this.gridX = newGridX;
+        this.gridY = newGridY;
+
+        // Movement section
+        // destination calc : position + (direction * stepsize)
         let tx = this.x + dx * this.stepSize;
         let ty = this.y + dy * this.stepSize;
 
-        if (tx === this.x && ty === this.y) {
-            return; // no movement possible (at edge)
-        }
-
+        // update constructor values
         this.direction = dir;
         this.moving = true;
         this.moveProgress = 0;
-        this.stepDuration = this.stepSize / this.moveSpeed;
 
         this.startX = this.x;
         this.startY = this.y;
         this.targetX = tx;
         this.targetY = ty;
+
     }
 
-    /**
-     * Called each frame by page-register.js
-     * dt = seconds since last frame.
-     */
-    update(seconds) {
-        if (this.moving) {
-            // progress from 0→1 over stepDuration seconds
-            this.moveProgress += seconds / this.stepDuration;
 
+    // Movement logic ---------------------------------------------------------------------------------------------------
+    
+    // Update position with animation for sprites walking 
+
+    update(frameTime) {  // frametime is 
+
+        // if moving
+        if (this.moving) {
+            // progress ever frame
+            this.moveProgress += frameTime / this.stepDuration;
+            // if finished
             if (this.moveProgress >= 1) {
                 this.moveProgress = 1;
                 this.moving = false;
@@ -199,18 +251,20 @@ export default class Walker {
                 this.y = this.targetY;
             }
 
-            // interpolate between start and target
+            // get current pixel position 
             const curX = this.startX + (this.targetX - this.startX) * this.moveProgress;
             const curY = this.startY + (this.targetY - this.startY) * this.moveProgress;
             this.applyPosition(curX, curY);
 
             // walking animation
-            this.frameTimer += seconds;
+            this.frameTimer += frameTime;
             if (this.frameTimer >= this.frameDuration) {
                 this.frameTimer = 0;
                 const set = SPRITES[this.direction];
                 this.frameIndex = (this.frameIndex + 1) % set.walk.length;
             }
+
+        // If youre standing
         } else {
             // standing exactly on a tile position
             this.applyPosition(this.x, this.y);
@@ -234,7 +288,7 @@ export default class Walker {
         this.setSprite();
     }
 
-    // ---------- SPRITES & POSITION ----------
+    // Set the correct sprite for walking vs standing
 
     setSprite() {
         const set = SPRITES[this.direction];
@@ -247,6 +301,8 @@ export default class Walker {
         }
     }
 
+    // Apply the current position properly to the sprite
+
     applyPosition(x, y) {
         if (!this.map) return;
 
@@ -257,6 +313,10 @@ export default class Walker {
         this.img.style.left = screenX + "px";
         this.img.style.top = screenY + "px";
     }
+
+
+
+    // destroy listeners if needed in future ? **
 
     destroy() {
         document.removeEventListener("keydown", this.handleKeyDown);
