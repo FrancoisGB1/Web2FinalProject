@@ -49,3 +49,12 @@ window.addEventListener("load", () => {
     //launch the loop at load time
     setupWalkerAndLoop();
 });
+
+// Music for fun
+window.addEventListener("click", () => {
+    const bgm = document.getElementById("bgm");
+    if (bgm.paused) {
+        bgm.volume = 0.3;  // Adjust volume as needed
+        bgm.play();
+    }
+}, { once: true });

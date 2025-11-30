@@ -6,21 +6,21 @@ const SPRITES = {
         stand: "img/walking/standingUp.png",
         walk: [
             "img/walking/walk2Up.png",
-            "img/walking/standingUp.png"
+            "img/walking/walk1Up.png"
         ]
     },
     down: {
         stand: "img/walking/standingDown.png",
         walk: [
             "img/walking/walk1Down.png",
-            "img/walking/standingDown.png"
+            "img/walking/walk2Down.png"
         ]
     },
     left: {
         stand: "img/walking/standingLeft.png",
         walk: [
             "img/walking/walk1Left.png",
-            "img/walking/standingLeft.png"
+            "img/walking/walk2Left.png"
         ]
     },
     right: {
@@ -292,7 +292,6 @@ export default class Walker {
 
     setSprite() {
         const set = SPRITES[this.direction];
-        if (!set) return;
 
         if (this.moving) {
             this.img.src = set.walk[this.frameIndex];
