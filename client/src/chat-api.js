@@ -172,22 +172,3 @@ export const registerCallbacks = (newMessage, memberListUpdate) => {
     memberListUpdateCallback = memberListUpdate;
 }
 
-
-// MY CODE --------------------------------------------------------------------------------------------------------------------------------------------
-
-const cryPidgey = new Audio("audio/pidgey.mp3");
-cryPidgey.volume = 0.3;
-
-// Music for fun
-window.addEventListener("click", () => {
-    const bgm = document.getElementById("bgm");
-    if (bgm.paused) {
-        bgm.volume = 0.10;  
-        bgm.play();
-    }
-    // pidgey cry
-    setTimeout(() => {
-      cryPidgey.play();
-    }, 3500);
-
-}, { once: true });
