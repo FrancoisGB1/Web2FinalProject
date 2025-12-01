@@ -5,14 +5,104 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Chat</title>
         <link rel="stylesheet" href="css/global.css">
-        <script src="dist/chat.js"></script>
+        <link rel="stylesheet" href="css/chat.css">
+        <script src="dist/chat.js" defer></script>
         <link rel="icon" href="img/favicon.png" type="image/png" />
     </head>
     <body>
+        <audio id="bgm" src="audio/Battle!.mp3" loop></audio>
         <a href="javascript:void(0)" id="sign-out-btn">Déconnexion</a>
 
-        <div>
-            <textarea cols="30" rows="10"></textarea>
+        <div id="chat-battle-layout">
+            <!-- CHAT (top-left) -->
+            <section id="chat-panel">
+                <h2 class="chat-title">Salon de chat</h2>
+
+                <textarea id="chat-log" cols="30" rows="10" readonly></textarea>
+
+                <form id="chat-form">
+                    <input
+                        id="chat-input"
+                        type="text"
+                        placeholder='Écris un message (tape "reset" pour réinitialiser le combat)'
+                        autocomplete="off"
+                    />
+                    <button type="submit">Envoyer</button>
+                </form>
+            </section>
+
+            <!-- BATTLE (right) -->
+            <section id="battle-panel">
+                <div id="battle-wrapper">
+                    <!-- Background battle stage -->
+                    <img
+                        id="battle-stage"
+                        src="img/battle/battleStage.png"
+                        alt="Stage de combat"
+                    />
+
+                    <!-- Enemy HP UI -->
+                    <div id="enemy-hp-ui" class="hp-ui">
+                        <img
+                            id="enemy-hp"
+                            src="img/battle/ennemyHP.png"
+                            alt="Barre de vie ennemi"
+                        />
+                        <div class="hp-overlay">
+                            <div class="hp-nameE" id="enemy-name">PIDGEY</div>
+                            <div class="hp-levelE" id="enemy-level">5</div>
+                        </div>
+                    </div>
+
+                    <!-- Player HP UI -->
+                    <div id="player-hp-ui" class="hp-ui">
+                        <img
+                            id="player-hp"
+                            src="img/battle/playerHP.png"
+                            alt="Barre de vie joueur"
+                        />
+                        <div class="hp-overlay">
+                            <div class="hp-nameP" id="player-name">CHARMANDER</div>
+                            <div class="hp-levelP" id="player-level">6</div>
+                            <div class="hp-numbersP" id="player-hp-text">22 / 22</div>
+                        </div>
+                    </div>
+
+                    <!-- Enemy Pokémon -->
+                    <img
+                        id="enemy-pokemon"
+                        src="img/battle/pidgey.png"
+                        alt="Pidgey ennemi"
+                    />
+
+                    <!-- Player Pokémon -->
+                    <img
+                        id="player-pokemon"
+                        src="img/battle/playerPokemon.png"
+                        alt="Charmander du joueur"
+                    />
+
+                    <!-- Moves UI -->
+                    <div id="moves-ui">
+                        <img
+                            id="moves-box"
+                            src="img/battle/moves.png"
+                            alt="Boîte des attaques"
+                        >
+                        <div id="moves-overlay">
+                            <div id="moves-list">
+                                <button class="move-btn1" data-move="scratch">GRIFFE</button>
+                                <button class="move-btn2" data-move="ember">FLAMMÈCHE</button>
+                                <!-- Ajoute d'autres attaques ici plus tard -->
+                            </div>
+                            <div id="moves-info">
+                                <span id="pp-text">35&nbsp;&nbsp;35</span>
+                                <span id="type-text">FEU</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
     </body>
 </html>

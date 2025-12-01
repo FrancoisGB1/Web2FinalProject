@@ -54,7 +54,7 @@ window.addEventListener("load", () => {
 window.addEventListener("click", () => {
     const bgm = document.getElementById("bgm");
     if (bgm.paused) {
-        bgm.volume = 0.3;  // Adjust volume as needed
+        bgm.volume = 0.1; 
         bgm.play();
     }
 }, { once: true });

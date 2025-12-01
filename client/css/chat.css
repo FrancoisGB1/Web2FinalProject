@@ -1,0 +1,318 @@
+
+@font-face {
+    font-family: "PokemonFont";
+    src: url("../fonts/pokemon-firered-leafgreen-font-recreation.ttf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Layout: chat left, battle right */
+#chat-battle-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+    
+    
+}
+
+/* Déconnexion button */
+#sign-out-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+    color: #fff;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+}
+
+/* CHAT PANEL (left) */
+#chat-panel {
+    width: 26rem;
+    min-width: 260px;
+    padding: 3rem 1rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: rgba(0, 0, 20, 0.88);
+}
+
+.chat-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+#chat-log {
+    flex: 1;
+    resize: none;
+    background: rgba(10, 10, 35, 0.95);
+    border: 2px solid #ffffff55;
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: #fff;
+    font-size: 0.9rem;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+}
+
+#chat-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid #888;
+    font-size: 0.9rem;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+}
+
+#chat-form button {
+    padding: 0.4rem 0.9rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background: #f8d030;
+    box-shadow: 0 2px #b88b07;
+    font-weight: bold;
+    color: #000;
+}
+
+/* BATTLE PANEL (right side, fills everything) */
+#battle-panel {
+    flex: 1;                        /* Take all remaining space */
+    display: flex;
+    align-items: stretch;           /* Let the wrapper stretch top-to-bottom */
+    justify-content: stretch;       /* Fill horizontally too */
+    padding: 0;
+    background: linear-gradient(#9fd7ff, #5ca0d8);
+}
+
+/* Battle wrapper fills the entire right side */
+#battle-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* All battle images (not wrappers) should be crisp */
+#battle-wrapper img {
+    position: absolute;
+    image-rendering: pixelated;
+}
+
+/* Stage fills whole container */
+#battle-stage {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ---------------- HP UI OVERLAYS ---------------- */
+
+.hp-ui {
+    position: absolute;
+    width: 33%;
+    height: 14%; 
+}
+
+/* Enemy HP container takes old enemy-hp position */
+#enemy-hp-ui {
+    top: 22%;
+    right: 43%;
+}
+
+/* Player HP container takes old player-hp position */
+#player-hp-ui {
+    bottom: 23%;
+    right: 0%;
+    width: 30%;
+}
+
+/* HP bar images fill their containers */
+#enemy-hp,
+#player-hp {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Overlay that sits on top of HP bars */
+.hp-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.8vw;
+}
+
+.hp-overlay div {
+    color:#494949;
+}
+/* Approximate placements inside HP box (tweak visually if needed) */
+/* For the ennemys hp */
+.hp-nameE {
+    position: absolute;
+    top: 21%;
+    left: 7%;
+    font-size: 220%;
+}
+
+.hp-levelE {
+    position: absolute;
+    top: 20%;
+    right: 15%;
+    font-size: 220%;
+}
+
+/* For the player's HP */
+.hp-nameP {
+    position: absolute;
+    top: 20%;
+    left: 15%;
+    font-size: 220%;
+}
+
+.hp-levelP {
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    font-size: 220%;
+}
+
+.hp-numbersP {
+    position: absolute;
+    bottom: -13%;
+    right: 11%;
+    font-size: 210%;
+}
+
+/* ---------------- POKÉMON SPRITES ---------------- */
+
+/* Enemy Pokémon (top-right grass) */
+#enemy-pokemon {
+    top: 32%;
+    right: 16%;
+    width: 20%;
+}
+
+/* Player Pokémon (bottom-left grass) */
+#player-pokemon {
+    bottom: -6%;
+    left: 5%;
+    width: 35%;
+}
+
+/* ---------------- MOVES BOX + OVERLAY ---------------- */
+
+#moves-ui {
+    position: absolute;
+    bottom: 19%;
+    right: 0%;
+    width: 60%;
+}
+
+#moves-box {
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Overlay layer on top of moves box */
+#moves-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 8% 6%;
+    box-sizing: border-box;
+    font-family: "PokemonFont", "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+    color:#333
+}
+
+/* Left side: grid of move buttons */
+#moves-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1.8em;
+    gap: 0.3em 0.6em;
+    width: 70%;
+}
+
+.move-btn1 {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+
+    top: 20%;
+    left: 5%;
+    font-size: 220%;
+}
+
+.move-btn2 {
+    position: absolute;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    top: 20%;
+    left: 32%;
+    font-size: 220%;
+
+}
+
+/* Right side: PP / TYPE info */
+
+#moves-list button {
+    color:#494949;
+}
+
+#moves-info {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 0.8vw;
+    gap: 0.3em;
+    color:#494949;
+}
+
+#type-text {
+    position: absolute;
+    top: 67%;
+    left: 80%;
+    font-size: 220%;
+    
+}
+
+
+#pp-text {
+    position: absolute;
+    top: 23%;
+    left: 84.2%;
+    font-size: 220%;
+}
