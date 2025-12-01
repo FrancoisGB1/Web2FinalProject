@@ -316,3 +316,27 @@
     left: 84.2%;
     font-size: 220%;
 }
+
+/* Small overlay area exactly where the green bar is */
+#enemy-hp-bar-area {
+    position: absolute;
+    top: 69%;
+    right: 16.2%;
+    width: 45.6%;
+    height: 12%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+    transform-origin: right; /* VERY IMPORTANT */
+}
+
+/* Gray cover that grows from the RIGHT */
+#enemy-hp-gray {
+    position: absolute;
+    top: 0%;
+    right: 0%;       /* anchored to the right edge */
+    width: 100%;       /* 0% damage at start */
+    height: 100%;
+    background: #727272;
+    z-index: 100;
+}
