@@ -31,5 +31,11 @@ Appuyer sur wasd pour deplacer le personnage sur la carte :
 
 PAGE LOGIN ----------------------------------------------------------------------------
 
-Cri de charizard :
-    - Cri de pokemon lorsquon se connecte
+Doit cliquer la souris pour commencer l'animation 
+
+Animation CSS pour reproduire la vieille intro de pokemon firered
+
+Animation flammes :
+    - Flammes montent et disparaissent apres le 8e sprite
+
+Doit cliquer pour ouvrir la fenetre login

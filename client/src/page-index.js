@@ -7,14 +7,7 @@ window.addEventListener("load", () => {
     }
 });
 
-// Flash the screen, see css intro-flash
-function flashScreen() {
-    const flash = document.getElementById("intro-flash");
-    if (!flash) return;
-    flash.classList.add("active");
-    setTimeout(() => flash.classList.remove("active"), 100);
-}
-
+// Animation for the flames ----------------------------------------------------------------------------------------------------------------------
 
 // list of frame paths for the flame
 const flameFrames = [
@@ -27,10 +20,9 @@ const flameFrames = [
     "img/intro/flame7.png",
     "img/intro/flame8.png"
 ];
-
-// Animation for the flames
+// actual setup and start the loop after 4.5 sec
 window.addEventListener("load", () => {
-    const introTeal = document.getElementById("intro-teal");
+    const introTeal = document.getElementById("intro-teal"); //container for flames
     const spriteList = []; 
     let lastTime = 0;
     let spawnCooldown = 0;          
@@ -41,7 +33,7 @@ window.addEventListener("load", () => {
         const frameTime = (time - lastTime) / 1000 || 0;
         lastTime = time;
 
-        // --- SPAWN FLAMES INSIDE THE LOOP ---
+        // spawn a new flame
         spawnCooldown += frameTime;
         if (spawnCooldown >= spawnInterval) {
             spawnCooldown -= spawnInterval;
@@ -53,14 +45,13 @@ window.addEventListener("load", () => {
             spriteList.push(
                 new Flame(randomX, flameFrames, {
                     container: introTeal,
-                    speedY: -275,
-                    ticksPerFrame: 17,
-                    fadeSpeed: 2
+                    speedY: -275, 
+                    fadeSpeed: 0.5 //opacity fade
                 })
             );
         }
 
-        // update sprites from flames.js
+        // update sprites 
         for (let sprite of spriteList) {
             sprite.update(frameTime);
         }
@@ -79,9 +70,19 @@ window.addEventListener("load", () => {
     }, 4500);
 });
 
-// All of the animation timesouts for the css stuff
+// All of the animation timesouts for the css stuff -----------------------------------------------------------------------------------------------
+
+// Flash the screen, see css intro-flash
+function flashScreen() {
+    const flash = document.getElementById("intro-flash");
+    if (!flash) return;
+    flash.classList.add("active");
+    setTimeout(() => flash.classList.remove("active"), 100);
+}
+
+// Big slide in function (just makes them show up thats all it does look at css otherwise)
 function startIntro() {
-    const music = document.getElementById("intro-music");
+    // all the dom stuff
     const charizard = document.getElementById("intro-charizard");
     const teal = document.getElementById("intro-teal");
     const barTop = document.getElementById("intro-bar-top");
@@ -89,7 +90,7 @@ function startIntro() {
     const pressStart = document.getElementById("intro-press-start");
     const logoWrapper = document.getElementById("intro-logo-wrapper");
     const whitebar = document.getElementById("intro-whitebar");
-    const fireballs = document.querySelectorAll(".fireball");
+
 
     // ALL OF THIS IS IS THROUGH CSS SLIDEIN wITH TRANSFORM GO CHECK THE CSS IM JUST ADDING THE CSS CLASS HERE
 
@@ -127,10 +128,11 @@ function startIntro() {
 
 }
 
+// Running the slideins and click events ----------------------------------------------------------------------------------------------------
 
 // music, then delay and start the slide ins from css
 let introMusic = new Audio("audio/titlescreen.mp3");
-introMusic.volume = 0.3;
+introMusic.volume = 0.2;
 
 function startIntroWithMusic() {
     introMusic.currentTime = 0;
@@ -138,12 +140,6 @@ function startIntroWithMusic() {
     setTimeout(() => {
         startIntro();  // <-- your Charizard + flashes sequence
     }, 1400);
-}
-
-
-// open the login screen
-function openLogin() {
-    introContainer.style.display = "none"
 }
 
 // load
@@ -162,11 +158,10 @@ window.addEventListener("load", () => {
     document.addEventListener("click", startOnce);
     document.addEventListener("keydown", startOnce);
 
-    // after 1 sec, clicking opens login
+    // after 3 sec, clicking opens login
     setTimeout(() => {
-
         document.addEventListener("click",() =>{
             loginwrapper.style.zIndex = 6;
         });
-    }, 1000);
+    }, 2000);
 });

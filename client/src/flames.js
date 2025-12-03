@@ -1,22 +1,21 @@
-// Flames.js
-
 export class Flame {
 
     constructor(x, frames, settings = {}) {
         this.frames = frames;
         this.frameIndex = 0;
         this.ticks = 0;
-        this.ticksPerFrame = settings.ticksPerFrame ?? 5;
+        this.ticksPerFrame = settings.ticksPerFrame ?? 17;
         this.done = false;
 
-        // where we put the flame
+        // container
         this.container = settings.container ?? document.querySelector(".intro-teal");
+
         // movement
-        this.speedY = settings.speedY ?? -80;  // px/s (negative = go up)
-        this.y = settings.startTop ?? this.container.offsetHeight; // just under the bottom
+        this.speedY = settings.speedY ?? -80;  
+        this.y = settings.startTop ?? this.container.offsetHeight; 
         this.x = x;
 
-        // fade-out when on the last sprite
+        // fade-outon the last sprite
         this.opacity = 1;
         this.fadeSpeed = settings.fadeSpeed ?? 0.5; // opacity per second
 
@@ -24,8 +23,8 @@ export class Flame {
         this.node = document.createElement("div");
         this.node.className = "flame-sprite";
         this.node.style.position = "absolute";
-        this.node.style.width = "120px";    // adjust if needed
-        this.node.style.height = "120px";   // adjust if needed
+        this.node.style.width = "120px";    
+        this.node.style.height = "120px";  
         this.node.style.left = `${this.x}px`;
         this.node.style.top = `${this.y}px`;
         this.node.style.backgroundRepeat = "no-repeat";
@@ -35,6 +34,7 @@ export class Flame {
         this.container.appendChild(this.node);
     }
 
+    // kill them
     destroy() {
         if (this.done) return;
         this.done = true;
@@ -43,30 +43,26 @@ export class Flame {
         }
     }
 
-    /**
-     * Call this from your main AnimationFrame loop.
-     * @param {number} frameTime - time since last frame in seconds
-     */
+    // update
     update(frameTime) {
         if (this.done) return;
-        // --- MOVE UP ---
+        // stop updating when done
         this.y += this.speedY * frameTime;
         this.node.style.top = `${this.y}px`;
 
-        // --- ANIMATE SPRITE ---
+        // counter for sprites change
         this.ticks++;
 
-        // change frame every ticksPerFrame "updates"
+        // change sprite every ticksPerFrame
         if (this.ticks >= this.ticksPerFrame) {
             this.ticks = 0;
 
-            // if not on last frame yet, advance
+            // if not on last sprite keep going
             if (this.frameIndex < this.frames.length - 1) {
                 this.frameIndex++;
-                this.node.style.backgroundImage =
-                    `url(${this.frames[this.frameIndex]})`;
+                this.node.style.backgroundImage = `url(${this.frames[this.frameIndex]})`;
             } else {
-                // LAST SPRITE: ease out (fade) then delete
+                // last sprite ease out
                 if(this.frameIndex == 7){
                     this.opacity -= this.fadeSpeed;
                 }
