@@ -6,19 +6,84 @@
         <title>Accueil</title>
         <script src="dist/index.js"></script>
         <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/index.css">
         <link rel="icon" href="img/favicon.png" type="image/png" />
-    </head>
-    <body>        
         
-        <form action="" method="post" autocomplete="off">
-            <div class="sign-in-input-group">
-                <div id="api-message"></div>
-                <input type="text" name="username" placeholder="Nom d'usager" required>
-                <input type="password" name="password" placeholder="Mot de passe" required>
-                <button>Connexion</button>
-            </div>
-        </form>
-        <a href="register.html">S'enregistrer</a>
+    </head>
+    <body>
 
-    </body>
+        <!-- Écran d’intro -->
+        <div id="intro-container">
+            <!-- Charizard NB -->
+            <img
+                id="intro-charizard"
+                src="img/intro/charizardblackwhite.png"
+                alt="Charizard"
+            >
+
+            <!-- Rectangle teal -->
+            <div id="intro-teal"></div>
+
+            <!-- Barre orange en haut -->
+            <div id="intro-bar-top"></div>
+
+            <!-- Barre rouge + texte -->
+            <div id="intro-bar-bottom">
+                <img src="img/intro/gamefreak.png">
+            </div>
+
+            <!-- Press Start -->
+            <img
+                id="intro-press-start"
+                src="img/intro/Press Start.png"
+                alt="Press Start"
+            >
+
+            <!-- Logo + version -->
+            <div id="intro-logo-wrapper">
+                <img
+                    id="intro-logo"
+                    src="img/intro/pokemonLogo.png"
+                    alt="Pokémon"
+                >
+                <img
+                    id="intro-version"
+                    src="img/intro/firered.png"
+                    alt="FireRed Version"
+                >
+            </div>
+
+            <!-- Barre diagonale blanche pour le “wipe” -->
+            <img
+                id="intro-whitebar"
+                src="img/intro/whitebar.png"
+                alt=""
+            >
+
+            <!-- Boules de feu dans le rectangle teal (si tu as un sprite fireball) -->
+            <div id="intro-fireballs">
+            </div>
+
+            <!-- Flash plein écran -->
+            <div id="intro-flash"></div>
+
+            <!-- Musique (change le chemin si besoin) -->
+            <audio id="intro-music" src="audio/intro-music.mp3"></audio>
+        </div>
+
+        <!-- Contenu login (ton code existant, juste enveloppé dans un wrapper) -->
+        <main id="login-wrapper">
+            <form action="" method="post" autocomplete="off">
+                <div class="sign-in-input-group">
+                    <div id="api-message"></div>
+                    <input type="text" name="username" placeholder="Nom d'usager" required>
+                    <input type="password" name="password" placeholder="Mot de passe" required>
+                    <button>Connexion</button>
+                    <a href="register.html" class="register-link">S'enregistrer</a>
+                </div>
+            </form>
+
+        </main>
+
+</body>
 </html>

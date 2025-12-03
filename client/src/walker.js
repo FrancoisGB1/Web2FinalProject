@@ -66,7 +66,7 @@ export default class Walker {
         this.map = mapNode;
 
         // Starting positions (weird because we're using an image on a 1920x1080)
-        this.x = 0.7385;
+        this.x = 0.7342;
         this.y = 0.4;
         // grid position for collision
         this.gridX = 4;  // column x

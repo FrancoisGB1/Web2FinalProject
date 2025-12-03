@@ -1,20 +1,65 @@
 import {registerCallbacks, sendMessage, signout, chatMessageLoop} from './chat-api';
 import Attack from "./Attack.js";
 
+document.querySelector("#sign-out-btn").onclick = signout;
 
 window.addEventListener("load", () => {
-    document.querySelector("textarea").onkeyup = function (evt) {
-        sendMessage(evt, this)
-    };
-    document.querySelector("#sign-out-btn").onclick = signout;
+
+    const chatInput = document.querySelector("#chat-input");
+    const chatForm  = document.querySelector("#chat-form");
+
+    chatForm.addEventListener("submit", function (evt) {
+        evt.preventDefault();
+        if (chatInput.value.trim() == "") return;
+        sendMessage({ which: 13 }, chatInput);
+    });
+
     registerCallbacks(newMessage, memberListUpdate);
     chatMessageLoop();
-})
+});
 
-// Lorsqu'un nouveau message doit être affiché à l'écran, cette fonction est appelée
 const newMessage = (fromUser, message, isPrivate) => {
-    console.log(fromUser, message, isPrivate);
-}
+    const chatLog = document.querySelector("#chat-log");
+
+    if (!chatLog) {
+        console.log(fromUser, message, isPrivate);
+        return;
+    }
+
+    let line = "";
+
+    if (fromUser) {
+        line += fromUser;
+        if (isPrivate) {
+            line += " (privé)";
+        }
+        line += " : ";
+    }
+
+    line += message;
+
+    chatLog.value += line + "\n";
+
+    chatLog.scrollTop = chatLog.scrollHeight;
+    
+    // Animation for shiny charmander
+    if (message.trim().toLowerCase() == "shiny") {
+        const playerPokemon = document.querySelector("#player-pokemon");
+        if (playerPokemon) {
+            playerPokemon.src = "img/battle/shinyCharmander.png";
+            playerPokemon.style.bottom = "-8%";
+            playerPokemon.style.width = "37%"
+        }
+    }
+
+    if (message.trim().toLowerCase() == "more pp") {
+        ppCountScratch = 35;
+        ppCountEmber = 35;
+        ppText.innerHTML = `${ppCountScratch}&nbsp;&nbsp;&nbsp;35`;
+
+    }
+
+};
 
 // À chaque 2-3 secondes, cette fonction est appelée. Il faudra donc mettre à jour la liste des membres
 // connectés dans votre interface.
@@ -27,11 +72,15 @@ const memberListUpdate = members => {
 
 const scratchSfx = new Audio("audio/Scratch.mp3");
 const emberSfx   = new Audio("audio/Ember.mp3");
+const ppText = document.getElementById("pp-text");
+const typeText = document.getElementById("type-text");
 let attackList = [];
 
 let enemyMaxHP = 35;
 let enemyHP = 35;
 const ENEMY_BAR_MAX_WIDTH = 45.6; // css width = 45.6%
+let ppCountScratch = 35;
+let ppCountEmber = 35;
 
 let enemyAlive = true;
 
@@ -40,6 +89,13 @@ console.log(enemyHP)
 
 // Scratch
 function spawnScratchAttack() {
+    if(ppCountScratch <= 0){
+        console.log("No PP left!!!")
+        return
+    }
+
+    typeText.innerHTML = `NORMAL`;    
+
     const frames = [
         "img/battle/scratch1.png",
         "img/battle/scratch2.png",
@@ -62,6 +118,15 @@ function spawnScratchAttack() {
         attackList.push(attack);
         damageEnemy(10)
         updateEnemyHPMask()
+        ppCountScratch--
+        if(ppCountScratch >= 10){
+            ppText.innerHTML = `${ppCountScratch}&nbsp;&nbsp;&nbsp;35`;
+            ppText.style.left = "84.2%"
+        }
+        else{
+            ppText.style.left = "86.5%"
+            ppText.innerHTML = `${ppCountScratch}&nbsp;&nbsp;&nbsp;35`;
+        }
     }
 }
 
@@ -69,6 +134,11 @@ function spawnScratchAttack() {
 // Ember
 
 function spawnEmberAttack() {
+    if(ppCountEmber <= 0){
+        console.log("No PP left!!!")
+        return
+    }
+    typeText.innerHTML = `FEU`;    
     const frames = [
         "img/battle/ember1.png",
         "img/battle/ember2.png",
@@ -93,6 +163,15 @@ function spawnEmberAttack() {
         attackList.push(attack);
         damageEnemy(15)
         updateEnemyHPMask()
+        ppCountEmber--
+        if(ppCountEmber >= 10){
+            ppText.innerHTML = `${ppCountEmber}&nbsp;&nbsp;&nbsp;35`;
+            ppText.style.left = "84.2%"
+        }
+        else{
+            ppText.style.left = "86.5%"
+            ppText.innerHTML = `${ppCountEmber}&nbsp;&nbsp;&nbsp;35`;
+        }
     }
 }
 
