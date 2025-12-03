@@ -8,16 +8,16 @@ html, body {
     z-index: 1;
 }
 
-/* Conteneur de l’intro plein écran */
+/* container for the intro */
 #intro-container {
     position: fixed;
     inset: 0;
     background: black;
     overflow: hidden;
-    z-index: 5; /* au-dessus du login */
+    z-index: 5; 
 }
 
-/* Charizard NB */
+/* Charizard  */
 #intro-charizard {
     position: absolute;
     right: 5%;
@@ -47,7 +47,7 @@ html, body {
     left: 0%;
 }
 
-/* Barre orange */
+/* Rectangle orange */
 #intro-bar-top {
     position: absolute;
     right: -100%;
@@ -58,7 +58,7 @@ html, body {
     transition: right 0.4s ease-out;
 }
 
-/* Barre rouge */
+/* Rectangle red */
 #intro-bar-bottom {
     position: absolute;
     right: -120%;
@@ -79,7 +79,7 @@ html, body {
     height: 80%;
 }
 
-/* Press Start */
+/* Press start */
 #intro-press-start {
     position: absolute;
     right: -50%;
@@ -98,7 +98,7 @@ html, body {
 }
 
 /* Logo + version */
-#intro-logo-wrapper {
+#intro-logo-container {
     height: 100%;
     position: absolute;
     left: 22%;
@@ -120,13 +120,13 @@ html, body {
     height: 30%;
     image-rendering: pixelated;
 }
-#intro-logo-wrapper.show {
+#intro-logo-container.show {
     opacity: 1;
     filter: brightness(1);
     transform: scale(1);
 }
 
-/* Barre diagonale blanche */
+/* white bar */
 #intro-whitebar {
     position: absolute;
     top: -20%;
@@ -139,6 +139,7 @@ html, body {
     opacity: 1;
     animation: whitebar-swipe 0.5s ease-out forwards;
 }
+/* used https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@keyframes */
 @keyframes whitebar-swipe {
     0% {
         transform: translateX(0);
@@ -152,7 +153,7 @@ html, body {
 
 
 
-/* Flash blanc plein écran */
+/* white flash */
 #intro-flash {
     position: fixed;
     inset: 0;
@@ -166,8 +167,8 @@ html, body {
     opacity: 1;
 }
 
-/* Wrapper du login : centré, caché pendant l’intro */
-#login-wrapper {
+/* Login container */
+#login-container {
     position: relative;
     z-index: 4;
     height: 100vh;

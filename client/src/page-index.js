@@ -67,7 +67,7 @@ window.addEventListener("load", () => {
     // start after a delay (causes a weird burst because of the time variable but whatever idk how to fix it)
     setTimeout(() => {
         requestAnimationFrame(loop);
-    }, 4500);
+    }, 4750);
 });
 
 // All of the animation timesouts for the css stuff -----------------------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ function startIntro() {
     const barTop = document.getElementById("intro-bar-top");
     const barBottom = document.getElementById("intro-bar-bottom");
     const pressStart = document.getElementById("intro-press-start");
-    const logoWrapper = document.getElementById("intro-logo-wrapper");
+    const logoContainer = document.getElementById("intro-logo-container");
     const whitebar = document.getElementById("intro-whitebar");
 
 
@@ -116,7 +116,7 @@ function startIntro() {
     // flash, logo slide in and slide in white bar for shine
     setTimeout(() => {
         flashScreen();
-        if (logoWrapper) logoWrapper.classList.add("show");
+        if (logoContainer) logoContainer.classList.add("show");
         if (whitebar) {
             whitebar.classList.remove("animate");
             void whitebar.offsetWidth; 
@@ -145,7 +145,7 @@ function startIntroWithMusic() {
 // load
 window.addEventListener("load", () => {
     
-    let loginwrapper = document.getElementById("login-wrapper");
+    let loginContainer = document.getElementById("login-container");
 
     // remove the start click after click or keying down because we dont want to spam the intro
     const startOnce = () => {
@@ -161,7 +161,7 @@ window.addEventListener("load", () => {
     // after 3 sec, clicking opens login
     setTimeout(() => {
         document.addEventListener("click",() =>{
-            loginwrapper.style.zIndex = 6;
+            loginContainer.style.zIndex = 6;
         });
     }, 2000);
 });

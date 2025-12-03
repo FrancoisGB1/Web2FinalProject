@@ -12,7 +12,7 @@
     </head>
     <body>
 
-        <!-- Écran d’intro -->
+        <!-- Intro container -->
         <div id="intro-container">
             <!-- Charizard NB -->
             <img
@@ -21,26 +21,26 @@
                 alt="Charizard"
             >
 
-            <!-- Rectangle teal -->
+            <!-- teal bar -->
             <div id="intro-teal"></div>
 
-            <!-- Barre orange en haut -->
+            <!-- orange bar -->
             <div id="intro-bar-top"></div>
 
-            <!-- Barre rouge + texte -->
+            <!-- red bar and gamefreak tm -->
             <div id="intro-bar-bottom">
                 <img src="img/intro/gamefreak.png">
             </div>
 
-            <!-- Press Start -->
+            <!-- Press start -->
             <img
                 id="intro-press-start"
                 src="img/intro/Press Start.png"
                 alt="Press Start"
             >
 
-            <!-- Logo + version -->
-            <div id="intro-logo-wrapper">
+            <!-- logo + version -->
+            <div id="intro-logo-container">
                 <img
                     id="intro-logo"
                     src="img/intro/pokemonLogo.png"
@@ -53,26 +53,20 @@
                 >
             </div>
 
-            <!-- Barre diagonale blanche pour le “wipe” -->
+            <!-- white bar -->
             <img
                 id="intro-whitebar"
                 src="img/intro/whitebar.png"
                 alt=""
             >
 
-            <!-- Boules de feu dans le rectangle teal (si tu as un sprite fireball) -->
-            <div id="intro-fireballs">
-            </div>
-
-            <!-- Flash plein écran -->
+            <!-- white flash -->
             <div id="intro-flash"></div>
 
-            <!-- Musique (change le chemin si besoin) -->
-            <audio id="intro-music" src="audio/intro-music.mp3"></audio>
         </div>
 
-        <!-- Contenu login (ton code existant, juste enveloppé dans un wrapper) -->
-        <main id="login-wrapper">
+        <!-- Login container with login info -->
+        <main id="login-container">
             <form action="" method="post" autocomplete="off">
                 <div class="sign-in-input-group">
                     <div id="api-message"></div>

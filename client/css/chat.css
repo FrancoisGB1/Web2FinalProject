@@ -102,8 +102,8 @@
     background: linear-gradient(#9fd7ff, #5ca0d8);
 }
 
-/* Battle wrapper  */
-#battle-wrapper {
+/* Battle container  */
+#battle-container {
     position: relative;
     width: 100%;
     height: 100%;
@@ -111,7 +111,7 @@
 }
 
 
-#battle-wrapper img {
+#battle-container img {
     position: absolute;
     image-rendering: pixelated;
 }

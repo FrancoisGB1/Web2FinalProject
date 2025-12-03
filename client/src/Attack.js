@@ -28,12 +28,7 @@ export class Attack {
         });
 
         // Append it
-        const container = document.getElementById("battle-wrapper");
-        if (!container) {
-            console.error("Attack: #battle-wrapper not found");
-            this.done = true;
-            return;
-        }
+        const container = document.getElementById("battle-container");
         container.appendChild(this.node);
     }
 
